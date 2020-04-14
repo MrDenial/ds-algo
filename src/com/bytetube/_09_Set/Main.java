@@ -12,13 +12,13 @@ public class Main {
 
     static void test1() {
 
-        Set<Integer> listSet = new ListSet<>();
-        listSet.add(10);
-        listSet.add(11);
-        listSet.add(11);
-        listSet.add(12);
-        listSet.add(10);
-
+//        Set<Integer> listSet = new ListSet<>();
+//        listSet.add(10);
+//        listSet.add(11);
+//        listSet.add(11);
+//        listSet.add(12);
+//        listSet.add(10);
+//
 //		listSet.traversal(new Visitor<Integer>() {
 //			@Override
 //			public boolean visit(Integer element) {
@@ -66,11 +66,11 @@ public class Main {
         String[] words = fileInfo.words();
         System.out.println("number of words：" + words.length);
 
-//		Times.test("ListSet", new Task() {
-//			public void execute() {
-//				testSet(new ListSet<>(), words);
-//			}
-//		});
+		Times.test("ListSet", new Task() {
+			public void execute() {
+				testSet(new ListSet<>(), words);
+			}
+		});
 
         Times.test("TreeSet", new Task() {
             public void execute() {
