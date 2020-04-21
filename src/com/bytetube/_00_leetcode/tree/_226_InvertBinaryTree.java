@@ -1,6 +1,4 @@
-package com.bytetube._0_leetcode.tree;
-
-import com.bytetube._0_leetcode.tree.TreeNode;
+package com.bytetube._00_leetcode.tree;
 
 import java.util.LinkedList;
 import java.util.Queue;

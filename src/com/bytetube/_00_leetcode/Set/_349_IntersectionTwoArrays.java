@@ -1,4 +1,4 @@
-package com.bytetube._0_leetcode.Set;
+package com.bytetube._00_leetcode.Set;
 
 import java.util.Arrays;
 import java.util.HashSet;

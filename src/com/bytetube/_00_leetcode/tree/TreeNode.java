@@ -1,4 +1,4 @@
-package com.bytetube._0_leetcode.tree;
+package com.bytetube._00_leetcode.tree;
 
 public class TreeNode {
    int val;

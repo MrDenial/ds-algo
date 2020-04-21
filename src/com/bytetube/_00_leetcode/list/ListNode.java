@@ -1,4 +1,4 @@
-package com.bytetube._0_leetcode.list;
+package com.bytetube._00_leetcode.list;
 
 public class ListNode {
     int val;

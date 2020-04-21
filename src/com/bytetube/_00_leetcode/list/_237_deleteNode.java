@@ -1,6 +1,4 @@
-package com.bytetube._0_leetcode.list;
-
-import com.bytetube._0_leetcode.list.ListNode;
+package com.bytetube._00_leetcode.list;
 
 /**
  * https://leetcode.com/problems/delete-node-in-a-linked-list/

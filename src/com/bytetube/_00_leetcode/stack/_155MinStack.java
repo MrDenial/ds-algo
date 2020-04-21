@@ -1,4 +1,4 @@
-package com.bytetube._0_leetcode.stack;
+package com.bytetube._00_leetcode.stack;
 
 import java.util.Stack;
 
