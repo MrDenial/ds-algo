@@ -30,9 +30,10 @@ public class Main {
         //test();
         //testMultiSp();
         //testDfs();
-        testBfs();
+        //testBfs();
         //testMst();
         //testSp();
+        testTopo();
     }
 
     static void testMultiSp() {

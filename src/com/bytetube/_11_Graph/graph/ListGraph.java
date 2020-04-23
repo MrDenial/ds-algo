@@ -248,32 +248,89 @@ public class ListGraph<V, E> extends Graph<V, E> {
     }
 
 
-    public void dfsRecursion(V begin){}
+    public void dfsRecursion(V begin){
+        Vertex<V,E> beginVertex = vertices.get(begin);
+        if (beginVertex == null) return;
+
+        dfs(beginVertex,new HashSet<>());
+
+    }
 
     private void dfs(Vertex<V,E> vertex,Set<Vertex<V, E>> visited) {//0
+        System.out.println(vertex.value);
+        visited.add(vertex);
+        for (Edge<V,E> edge:vertex.outEdges) {
+            if (visited.contains(edge.to)) {
+                continue;
+            }
+            dfs(edge.to,visited);//tail recursion
+        }
+
     }
 
     /**
-     * 1.先打印根节点（判断是否已经被访问过），然后从outEdges中选择一条边
-     * 2.将被选择边的from、to按顺序入栈
-     * 3.打印被选择边的to
-     * 4.将to加到已经访问的范围中
-     * 5.break（不去访问outEdges中的其他边，而且访问一条边上的剩余点）
-     * 6.弹出栈顶元素
-     * @param begin
-     * @param visitor
+     *1.先打印当前顶点（第一个顶点肯定是没有被访问过的，之后的顶点在打印之前，需要先判断是否已经被访问过），然后从outedges选择一条边
+     *2.将被选择的from，to顺序压栈
+     *3.打印被选择的边上的to
+     *4.将to加入到已经访问的容器中
+     *5.break（不去访问outedges中的其他边，而是访问一条边上的剩余结点）
+     *6.弹出栈顶元素
      */
-    @Override
-    public void dfs(V begin, VertexVisitor<V> visitor) { }
+    public void dfs(V begin, VertexVisitor<V> visitor) {
+        if (visitor == null) return;
+        Vertex<V, E> beginVertex = vertices.get(begin);
+        if (beginVertex == null) return;
 
-    public void dfs2(V begin) { }
+        Set<Vertex<V,E>> visited = new HashSet<>();
+        Stack<Vertex<V,E>> stack = new Stack<>();
 
-    private void dfs2(Vertex<V, E> vertex, Set<Vertex<V, E>> visitedVertices) {}
+        stack.push(beginVertex);
+        visited.add(beginVertex);
+        if (visitor.visit(begin)) return;
+        while (!stack.isEmpty()){
+            Vertex<V, E> vertex = stack.pop();
+            for (Edge<V,E> edge:vertex.outEdges) {
+                if (visited.contains(edge.to)) continue;
+                stack.push(edge.from);
+                stack.push(edge.to);
+                visited.add(edge.to);
+                if (visitor.visit(edge.to.value)) return;
+                break;
+            }
+        }
+
+    }
+
 
     @Override
     public List<V> topologicalSort() {
+        List<V> list = new ArrayList<>();
+        Queue<Vertex<V,E>> queue = new LinkedList<>();
+        Map<Vertex<V,E>,Integer> ins = new HashMap<>();
 
-        return null;
+        vertices.forEach((V v,Vertex<V,E> vertex)->{
+            int in = vertex.inEdges.size();
+            if (in == 0) {
+                queue.offer(vertex);
+            }else {
+                ins.put(vertex,in);
+            }
+        });
+        while (!queue.isEmpty()){
+            Vertex<V, E> vertex = queue.poll();
+            list.add(vertex.value);
+
+            for (Edge<V,E> edge:vertex.outEdges) {
+                int toIn = ins.get(edge.to)-1;
+                if (toIn == 0) {
+                    queue.offer(edge.to);
+                }else {
+                    ins.put(edge.to,toIn);
+                }
+            }
+
+        }
+        return list;
     }
 
     @Override
