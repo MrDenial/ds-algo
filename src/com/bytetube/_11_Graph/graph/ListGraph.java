@@ -252,7 +252,7 @@ public class ListGraph<V, E> extends Graph<V, E> {
         Vertex<V,E> beginVertex = vertices.get(begin);
         if (beginVertex == null) return;
 
-        dfs(beginVertex,new HashSet<>());
+        dfs(beginVertex,new HashSet<>());//尾递归 tail recursion
 
     }
 
@@ -340,12 +340,48 @@ public class ListGraph<V, E> extends Graph<V, E> {
     }
 
     private Set<EdgeInfo<V, E>> prim() {
+        Set<Vertex<V,E>> addedVertices = new HashSet<>();//S
 
-        return null;
+            Set<EdgeInfo<V,E>> edgeInfos = new HashSet<>();//A 边集
+        Iterator<Vertex<V, E>> iterator = vertices.values().iterator();
+        if (!iterator.hasNext()) {
+            return null;
+        }
+        Vertex<V, E> vertex = iterator.next();//A 顶点
+        addedVertices.add(vertex);//A--->S
+        MinHeap<Edge<V, E>> heap = new MinHeap<>(vertex.outEdges, edgeComparator);
+        while (!heap.isEmpty()&& addedVertices.size()<vertices.size()){
+            Edge<V, E> removed = heap.remove();//AB
+            if (addedVertices.contains(removed.to) ) {
+                continue;
+            }
+            edgeInfos.add(removed.info());//AB--->A边集
+            addedVertices.add(removed.to);//B--->S
+            heap.addAll(removed.to.outEdges);
+        }
+        return  edgeInfos;
+
     }
 
     private Set<EdgeInfo<V, E>> kruskal() {
-        return null;
+        Set<EdgeInfo<V,E>> edgeInfos = new HashSet<>();//A 边集
+        MinHeap<Edge<V, E>> heap = new MinHeap<>(edges, edgeComparator);
+        UnionFind<Object> unionFind = new UnionFind<>();
+        vertices.forEach((V v,Vertex<V,E> vertex)->{
+            unionFind.makeSet(vertex);//初始化：使得每个顶点成为一个单独的并查集
+        }
+        );
+        while (!heap.isEmpty() && edgeInfos.size()<vertices.size()-1){
+            Edge<V, E> removed = heap.remove();
+            //如果一条边上的2个顶点都在集合中，则说明成环，当前这边就不能加入到mst当中
+            if (unionFind.isSame(removed.from,removed.to) ) {
+                continue;
+            }
+            edgeInfos.add(removed.info());
+            unionFind.union(removed.from,removed.to);
+
+        }
+        return edgeInfos;
     }
 
     //从给定的一个顶点的outedges中选取最小的路径信息

@@ -31,9 +31,9 @@ public class Main {
         //testMultiSp();
         //testDfs();
         //testBfs();
-        //testMst();
+        testMst();
         //testSp();
-        testTopo();
+        //testTopo();
     }
 
     static void testMultiSp() {
@@ -54,16 +54,20 @@ public class Main {
     }
 
     static void testSp() {
-        Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT1);//directedGraph(Data.NEGATIVE_WEIGHT2);//directedGraph(Data.SP);
-        Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath("A");
-        if (sp == null) return;
-        sp.forEach((Object v, PathInfo<Object, Double> path) -> {
-            System.out.println(v + " - " + path);
-        });
+        Graph<Object, Double> graph = directedGraph(Data.SP);
+        Map<Object, Double> sp = graph.shortestPath1("A");
+        System.out.println(sp);
+
+//        Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT1);//directedGraph(Data.NEGATIVE_WEIGHT2);//directedGraph(Data.SP);
+//        Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath("A");
+//        if (sp == null) return;
+//        sp.forEach((Object v, PathInfo<Object, Double> path) -> {
+//            System.out.println(v + " - " + path);
+//        });
     }
 
     static void testMst() {
-        Graph<Object, Double> graph = undirectedGraph(Data.MST_02);
+        Graph<Object, Double> graph = undirectedGraph(Data.MST_01);
         Set<EdgeInfo<Object, Double>> infos = graph.mst();
         for (EdgeInfo<Object, Double> info : infos) {
             System.out.println(info);
