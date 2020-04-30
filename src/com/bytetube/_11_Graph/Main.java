@@ -31,8 +31,8 @@ public class Main {
         //testMultiSp();
         //testDfs();
         //testBfs();
-        testMst();
-        //testSp();
+        //testMst();
+        testSp();
         //testTopo();
     }
 
@@ -45,8 +45,8 @@ public class Main {
 //				System.out.println(to + " - " + path);
 //			});
 //		});
-        Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT2);
-        Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath(0);
+        Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT1);
+        Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath("A");
         sp.forEach((Object v,PathInfo<Object,Double>path) ->{
             System.out.println(v+"-"+path);
         });
@@ -54,16 +54,16 @@ public class Main {
     }
 
     static void testSp() {
-        Graph<Object, Double> graph = directedGraph(Data.SP);
-        Map<Object, Double> sp = graph.shortestPath1("A");
-        System.out.println(sp);
+//        Graph<Object, Double> graph = directedGraph(Data.SP);
+//        Map<Object, Double> sp = graph.shortestPath1("A");
+//        System.out.println(sp);
 
-//        Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT1);//directedGraph(Data.NEGATIVE_WEIGHT2);//directedGraph(Data.SP);
-//        Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath("A");
-//        if (sp == null) return;
-//        sp.forEach((Object v, PathInfo<Object, Double> path) -> {
-//            System.out.println(v + " - " + path);
-//        });
+        Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT2);//directedGraph(Data.NEGATIVE_WEIGHT2);//directedGraph(Data.SP);
+        Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath(0);
+        if (sp == null) return;
+        sp.forEach((Object v, PathInfo<Object, Double> path) -> {
+            System.out.println(v + " - " + path);
+        });
     }
 
     static void testMst() {
