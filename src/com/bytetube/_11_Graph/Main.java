@@ -28,28 +28,28 @@ public class Main {
 
     public static void main(String[] args) {
         //test();
-        //testMultiSp();
+        testMultiSp();
         //testDfs();
         //testBfs();
         //testMst();
-        testSp();
+        //testSp();
         //testTopo();
     }
 
     static void testMultiSp() {
-//		Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT1);
-//		Map<Object, Map<Object, PathInfo<Object, Double>>> sp = graph.shortestPath();
-//		sp.forEach((Object from, Map<Object, PathInfo<Object, Double>> paths) -> {
-//			System.out.println(from + "---------------------");
-//			paths.forEach((Object to, PathInfo<Object, Double> path) -> {
-//				System.out.println(to + " - " + path);
-//			});
-//		});
-        Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT1);
-        Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath("A");
-        sp.forEach((Object v,PathInfo<Object,Double>path) ->{
-            System.out.println(v+"-"+path);
-        });
+		Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT1);
+		Map<Object, Map<Object, PathInfo<Object, Double>>> sp = graph.shortestPath();
+		sp.forEach((Object from, Map<Object, PathInfo<Object, Double>> paths) -> {
+			System.out.println(from + "---------------------");
+			paths.forEach((Object to, PathInfo<Object, Double> path) -> {
+				System.out.println(to + " - " + path);
+			});
+		});
+//        Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT1);
+//        Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath("A");
+//        sp.forEach((Object v,PathInfo<Object,Double>path) ->{
+//            System.out.println(v+"-"+path);
+//        });
 
     }
 
