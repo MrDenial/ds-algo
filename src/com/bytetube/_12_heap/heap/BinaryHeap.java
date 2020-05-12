@@ -16,16 +16,28 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
 	private E[] elements;
 	private static final int DEFAULT_CAPACITY = 10;
 
-	public BinaryHeap( E[] elements,Comparator comparator) {
-
+	public BinaryHeap(E[] elements,Comparator<E> comparator) {
 		super(comparator);
-		this.elements = elements;
+		//this.elements = elements;
+		if (elements == null || elements.length==0) {
+			this.elements = (E[])new Object[DEFAULT_CAPACITY];
+		}else {
+			size = elements.length;
+			int capacity = Math.max(elements.length,DEFAULT_CAPACITY);
+			this.elements = (E[])new Object[capacity];
+			for (int i = 0; i < elements.length; i++) {
+				this.elements[i] = elements[i];
+			}
+			heapify();
+		}
 	}
 
 	public BinaryHeap(E[] elements) {
 		this(elements,null);
 	}
-
+	public BinaryHeap(Comparator<E> comparator) {
+		this(null, comparator);
+	}
 
 	public BinaryHeap(){
 		this(null,null);
@@ -100,7 +112,6 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
 
 	}
 
-
 	@Override
 	public E remove() {
 		emptyCheck();
@@ -129,7 +140,7 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
 			int rightIndex = childIndex+1;
 			//从左右孩子种选择出较大的孩子
 			if (rightIndex<size && compare(elements[rightIndex],child) >0) {
-				child = elements[rightIndex];
+				child = elements[childIndex=rightIndex];
 			}
 			//左右孩子都比parent小
 			if(compare(element,child)>=0) break;
@@ -143,10 +154,37 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
 	}
 
 	@Override
-	public Object replace(Object element) {
-		return null;
+	public  E replace( E element) {
+		elementNotNullCheck(element);
+		E root = null;
+		//case 1 heap is empty
+		if (size == 0) {
+			elements[0] = element;
+			size++;
+		}else {//case 2  heap is not empty
+			root = elements[0];
+			elements[0] = element;
+			siftDown(0);
+		}
+
+		return root;
 	}
-	
+
+
+	private void heapify(){
+		//自上而下的上滤  O(nlogn)
+//		for (int i = 1; i < size; i++) {
+//			siftUp(i);
+//		}
+
+		//自下而上的下滤 O(n)
+		for (int i = (size>>1)-1; i >=0 ; i--) {
+			siftDown(i);
+		}
+	}
+
+
+
 
 
 
