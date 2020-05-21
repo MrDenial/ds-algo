@@ -17,13 +17,36 @@ public class Fib {
                 System.out.println(fib2(45));
             }
         });
+
+        Times.test("fib", new Times.Task() {
+            @Override
+            public void execute() {
+                System.out.println(fib(45));
+            }
+        });
     }
+
+    public static int fib(int n) {//6 5
+
+        return process(n,1,1);
+    }
+
+    private static int process(int n, int first, int second) {
+        if (n <=1) {
+            return first;
+        }
+
+        return process(n-1,second,first+second);
+    }
+
 
     public static int fib1(int n){//6 5
         if (n <=2 ) return 1;
             //fib(4)+fib(3)
         return fib1(n-1)+fib1(n-2);
     }
+
+
 
 
     public static int fib2(int n){
