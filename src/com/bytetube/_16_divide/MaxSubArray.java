@@ -3,10 +3,43 @@ package com.bytetube._16_divide;
 public class MaxSubArray {
     public static void main(String[] args) {
 
-        System.out.println(maxSubArray2(new int[] {-2,1,-3,4,-1,2,1,-5,4}));
+        System.out.println(maxSubArray3(new int[] {-2,1,-3,4,-1,2,1,-5,4}));
     }
 
+    public static int maxSubArray3(int[] nums) {//O(n^2)
+        if (nums == null || nums.length==0) return 0;
 
+
+        return maxSubArray3(nums,0,nums.length);
+
+    }
+
+    private static int maxSubArray3(int[] nums, int begin, int end) {
+        if (end-begin <2) {
+            return nums[begin];
+        }
+        int mid = (begin+end)>>1;
+        int leftMax = Integer.MIN_VALUE;
+        int leftSum = 0;
+        for (int i = mid-1; i >= begin ; i--) {
+            leftSum += nums[i];
+            leftMax = Math.max(leftMax,leftSum);
+        }
+
+        int rightMax = Integer.MIN_VALUE;
+        int rightSum = 0;
+        for (int i = mid; i < end ; i++) {
+            rightSum += nums[i];
+            rightMax = Math.max(rightMax,rightSum);
+        }
+
+        int yellowSum = leftMax + rightMax;
+        int purpleMax = maxSubArray3(nums,begin,mid);
+        int blueMax = maxSubArray3(nums,mid,end);
+        return Math.max(yellowSum,
+                Math.max(purpleMax,blueMax));
+
+    }
 
     public static int maxSubArray2(int[] nums) {//O(n^2)
         if (nums == null || nums.length==0) return 0;

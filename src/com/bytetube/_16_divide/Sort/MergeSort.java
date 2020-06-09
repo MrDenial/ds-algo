@@ -1,4 +1,4 @@
-package com.bytetube._16_divide;
+package com.bytetube._16_divide.Sort;
 
 public class MergeSort {
     public static void main(String[] args) {
