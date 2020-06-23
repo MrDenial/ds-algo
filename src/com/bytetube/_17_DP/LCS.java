@@ -2,11 +2,43 @@ package com.bytetube._17_DP;
 //[1, 3, 5, 9, 10] 和[1, 4, 9, 10]
 public class LCS {
     public static void main(String[] args) {
-        int[] nums1 = {1, 3, 5, 9, 10};
-        int[] nums2 = {1, 4, 9, 10};
-        System.out.println(LCS4(nums1,nums2));
+//        int[] nums1 = {1, 3, 5, 9, 10};
+//        int[] nums2 = {1, 4, 9, 10};
+//        System.out.println(LCS4(nums1,nums2));
+        System.out.println(longestCommonSubsequence("abc","def"));
     }
 
+
+    public static int longestCommonSubsequence(String text1, String text2) {
+        if (text1 == null || text2 == null) return 0;
+
+        char[] chars1 = text1.toCharArray();
+        if (chars1.length == 0)  return 0;
+        char[] chars2 = text2.toCharArray();
+        if (chars2.length == 0)  return 0;
+
+        char[] rowChars = chars1, colChars = chars2;
+        if (chars1.length < chars2.length) {
+            colChars = chars1;
+            rowChars = chars2;
+        }
+
+        int[] dp = new int[colChars.length+1];
+        for (int i = 1; i <= rowChars.length ; i++) {
+            int cur = 0;
+            for (int j = 1; j <= colChars.length; j++) {
+                int leftTop = cur;
+                cur = dp[j];
+                if (rowChars[i-1] == colChars[j-1]) {
+                    dp[j] = leftTop+1;
+                }else {
+                    dp[j] = Math.max(dp[j],dp[j-1]);
+                }
+            }
+        }
+        return dp[colChars.length];
+
+    }
     public static int LCS4(int[] nums1, int[] nums2){
         if (nums1 == null || nums1.length == 0) return 0;
         if (nums2 == null || nums2.length == 0) return 0;
